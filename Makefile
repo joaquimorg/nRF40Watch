@@ -80,8 +80,7 @@ SRC_FILES := \
   $(PROJ_DIR)/services/time.c \
   $(PROJ_DIR)/drivers/lcd_st7789.c \
   $(PROJ_DIR)/drivers/touch_cst816s.c \
-  $(PROJ_DIR)/drivers/backlight.c \
-  $(wildcard $(PROJ_DIR)/lvgl/**/*.c)
+  $(PROJ_DIR)/drivers/backlight.c
 
 SRC_FILES += $(SDK_SRC_FILES)
 SRC_FILES += $(LVGL_SRC_FILES)
