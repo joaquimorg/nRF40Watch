@@ -1,4 +1,5 @@
 #include "backlight.h"
+#include <stdint.h>
 
 void backlight_init(void) {
     // Init backlight GPIO or PWM
