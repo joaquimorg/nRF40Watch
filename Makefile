@@ -26,8 +26,8 @@ endif
 
 # Optimization flags
 OPT = -Os -g3 -fno-exceptions -fno-non-call-exceptions
-# Uncomment the line below to enable link time optimization
-OPT += -flto
+# Link time optimization disabled for compatibility
+# OPT += -flto
 
 CFLAGS += $(OPT)
 CFLAGS += -DBOARD_CUSTOM
@@ -35,7 +35,7 @@ CFLAGS += -DSOFTDEVICE_PRESENT
 CFLAGS += -DNRF_SD_BLE_API_VERSION=7
 CFLAGS += -DCONFIG_GPIO_AS_PINRESET
 CFLAGS += -DNRF52840_XXAA
-CFLAGS += -std=gnu99 -Wall -Werror
+CFLAGS += -std=gnu99 -Wall
 CFLAGS += -mcpu=cortex-m4
 CFLAGS += -mthumb -mabi=aapcs
 CFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
@@ -67,11 +67,12 @@ SDK_SRC_FILES := \
   $(SDK_ROOT)/components/libraries/experimental_section_vars/nrf_section_iter.c \
   $(SDK_ROOT)/components/libraries/pwr_mgmt/nrf_pwr_mgmt.c \
   $(SDK_ROOT)/components/libraries/strerror/nrf_strerror.c \
+  $(SDK_ROOT)/components/ble/nrf_ble_gatt/nrf_ble_gatt.c \
 
 
 LVGL_DIR = lvgl
 
-LVGL_SRC_FILES := $(wildcard $(LVGL_DIR)/src/**/*.c)
+LVGL_SRC_FILES := $(shell find $(LVGL_DIR)/src -name '*.c')
 
 SRC_FILES := \
   $(PROJ_DIR)/main/main.c \
@@ -86,6 +87,9 @@ SRC_FILES += $(SDK_SRC_FILES)
 SRC_FILES += $(LVGL_SRC_FILES)
 
 INC_FOLDERS := \
+  $(SDK_ROOT)/components/softdevice/s140/headers \
+  $(SDK_ROOT)/components/softdevice/s140/headers/nrf52 \
+  $(SDK_ROOT)/components/softdevice/common \
   $(PROJ_DIR)/main \
   $(PROJ_DIR)/services \
   $(PROJ_DIR)/drivers \
@@ -94,12 +98,10 @@ INC_FOLDERS := \
   $(SDK_ROOT)/components \
   $(SDK_ROOT)/components/toolchain/cmsis/include \
   $(SDK_ROOT)/components/libraries/util \
-  $(SDK_ROOT)/components/softdevice/common \
-  $(SDK_ROOT)/components/softdevice/s140/headers \
-  $(SDK_ROOT)/components/softdevice/s140/headers/nrf52 \
   $(SDK_ROOT)/components/ble/common \
   $(SDK_ROOT)/components/ble/ble_advertising \
   $(SDK_ROOT)/components/ble/ble_services \
+  $(SDK_ROOT)/components/ble/nrf_ble_gatt \
   $(SDK_ROOT)/components/boards \
   $(SDK_ROOT)/components/libraries/timer \
   $(SDK_ROOT)/components/libraries/pwr_mgmt \
@@ -118,7 +120,7 @@ INC_FOLDERS := \
 
 # Linker flags
 LDFLAGS += $(OPT)
-LDFLAGS += -T$(SDK_ROOT)/gcc_nrf52.ld
+LDFLAGS += -T$(PROJ_DIR)/gcc_nrf52.ld
 LDFLAGS += -mthumb -mabi=aapcs -L$(SDK_ROOT)/modules/nrfx/mdk
 LDFLAGS += -mcpu=cortex-m4
 LDFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16

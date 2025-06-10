@@ -301,7 +301,7 @@ static void nrf_sdh_ble_evts_poll(void * p_context)
              nrf_section_iter_next(&iter))
         {
             nrf_sdh_ble_evt_observer_t * p_observer;
-            nrf_sdh_ble_evt_handler_t    handler;
+            void (*handler)(ble_evt_t const *, void *);
 
             p_observer = (nrf_sdh_ble_evt_observer_t *)nrf_section_iter_get(&iter);
             handler    = p_observer->handler;

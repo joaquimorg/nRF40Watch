@@ -37,6 +37,11 @@
 #define NRF_SDH_REQ_OBSERVER_PRIO_LEVELS 3
 #define NRF_SDH_BLE_STACK_OBSERVER_PRIO 0
 #define NRF_SDH_BLE_STACK_OBSERVER_PRIO_LEVELS 3
+#define NRF_SDH_BLE_CENTRAL_LINK_COUNT 0
+#define NRF_SDH_BLE_GAP_EVENT_LENGTH 6
+#define NRF_SDH_BLE_GATTS_ATTR_TAB_SIZE 1408
+#define NRF_SDH_BLE_SERVICE_CHANGED 0
+#define NRF_SDH_BLE_LOG_ENABLED 0
 // </h>
 
 //==========================================================
@@ -51,6 +56,8 @@
 //==========================================================
 #define GPIOTE_ENABLED 1
 #define GPIOTE_CONFIG_NUM_OF_LOW_POWER_EVENTS 1
+#define NRFX_GPIOTE_ENABLED 1
+#define NRFX_GPIOTE_CONFIG_IRQ_PRIORITY 6
 // </h>
 
 //==========================================================

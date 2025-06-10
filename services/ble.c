@@ -1,9 +1,9 @@
 #include "nrf_sdh.h"
 #include "nrf_sdh_ble.h"
+#include "ble_gap.h"
 #include "ble_advdata.h"
 #include "ble_advertising.h"
 #include "ble.h"
-#include "ble_gap.h"
 #include "nrf_ble_gatt.h"
 #include "app_error.h"
 
