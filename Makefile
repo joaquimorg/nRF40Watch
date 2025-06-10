@@ -69,6 +69,10 @@ SDK_SRC_FILES := \
   $(SDK_ROOT)/components/libraries/strerror/nrf_strerror.c \
 
 
+LVGL_DIR = lvgl
+
+LVGL_SRC_FILES := $(wildcard $(LVGL_DIR)/src/**/*.c)
+
 SRC_FILES := \
   $(PROJ_DIR)/main/main.c \
   $(PROJ_DIR)/main/gui.c \
@@ -80,6 +84,7 @@ SRC_FILES := \
   $(wildcard $(PROJ_DIR)/lvgl/**/*.c)
 
 SRC_FILES += $(SDK_SRC_FILES)
+SRC_FILES += $(LVGL_SRC_FILES)
 
 INC_FOLDERS := \
   $(PROJ_DIR)/main \
@@ -109,7 +114,8 @@ INC_FOLDERS := \
   $(SDK_ROOT)/integration/nrfx/legacy \
   $(SDK_ROOT)/modules/nrfx/mdk \
   $(SDK_ROOT)/modules/nrfx/drivers/include \
-  $(PROJ_DIR)/config
+  $(PROJ_DIR)/config \
+  $(LVGL_DIR)
 
 # Linker flags
 LDFLAGS += $(OPT)
