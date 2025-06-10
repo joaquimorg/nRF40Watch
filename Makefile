@@ -6,6 +6,15 @@ PROJ_DIR := .
 DEVICE := NRF52840_XXAA
 BOARD := custom
 
+# Toolchain commands
+# Should be added to your PATH
+CROSS_COMPILE ?= arm-none-eabi-
+CC      = $(CROSS_COMPILE)gcc
+CXX     = $(CROSS_COMPILE)g++
+AS      = $(CROSS_COMPILE)as
+OBJCOPY = $(CROSS_COMPILE)objcopy
+SIZE    = $(CROSS_COMPILE)size
+
 # Determine platform
 ifeq ($(OS),Windows_NT)
   RM = del /Q /F
@@ -115,8 +124,8 @@ all: $(BUILD_DIR)/$(PROJECT_NAME).hex
 
 $(BUILD_DIR)/$(PROJECT_NAME).hex: $(SRC_FILES)
 	@$(call MKDIR,$(BUILD_DIR))
-	arm-none-eabi-gcc $(CFLAGS) $(INCLUDES) $(SRC_FILES) -o $(BUILD_DIR)/$(PROJECT_NAME).out $(LDFLAGS)
-	arm-none-eabi-objcopy -O ihex $(BUILD_DIR)/$(PROJECT_NAME).out $(BUILD_DIR)/$(PROJECT_NAME).hex
+	$(CC) $(CFLAGS) $(INCLUDES) $(SRC_FILES) -o $(BUILD_DIR)/$(PROJECT_NAME).out $(LDFLAGS)
+	$(OBJCOPY) -O ihex $(BUILD_DIR)/$(PROJECT_NAME).out $(BUILD_DIR)/$(PROJECT_NAME).hex
 
 clean:
 	$(RM) $(BUILD_DIR)/*.o $(BUILD_DIR)/*.out $(BUILD_DIR)/*.hex
