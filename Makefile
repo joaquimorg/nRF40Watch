@@ -120,7 +120,7 @@ INC_FOLDERS := \
 
 # Linker flags
 LDFLAGS += $(OPT)
-LDFLAGS += -T$(PROJ_DIR)/gcc_nrf52.ld
+LDFLAGS += -T$(PROJ_DIR)/config/gcc_nrf52.ld
 LDFLAGS += -mthumb -mabi=aapcs -L$(SDK_ROOT)/modules/nrfx/mdk
 LDFLAGS += -mcpu=cortex-m4
 LDFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
