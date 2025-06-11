@@ -2,7 +2,7 @@
 
 Basic firmware for a custom nRF52840-based smartwatch using:
 
-- **LVGL** for GUI rendering on ST7789V LCD
+- **LVGL 9.3** for GUI rendering on ST7789V LCD
 - **BLE (SoftDevice S140)** for communication
 - **CST816S** touch controller via I2C
 
@@ -15,7 +15,7 @@ ProjectRoot/
 ├── services/        # BLE and time services
 ├── drivers/         # LCD, touch, and backlight drivers
 ├── config/          # sdk_config.h
-├── lvgl/            # LVGL library
+├── lvgl/            # LVGL 9.3 library sources
 ├── nrf5_sdk/        # Copied Nordic SDK files
 ├── Makefile         # Cross-platform build system
 ```
@@ -35,6 +35,7 @@ ProjectRoot/
 - GCC ARM Embedded toolchain (`arm-none-eabi-gcc`)
 - GNU Make
 - Nordic SDK 17.1.0 (place required files in `nrf5_sdk/`)
+- LVGL 9.3 source files copied into `lvgl/`
 
 ### Linux/macOS
 ```bash
