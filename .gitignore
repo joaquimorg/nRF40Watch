@@ -1,5 +1,6 @@
 # CMake
 _build
+old_code
 
 # Resulting binary files
 *.a

@@ -32,7 +32,7 @@ ProjectRoot/
 
 ## 🛠 Build Instructions
 ### Prerequisites
-- GCC ARM Embedded toolchain (`arm-none-eabi-gcc`)
+- GCC ARM Embedded toolchain (`arm-none-eabi-gcc`) v11.3.1
 - GNU Make
 - Nordic SDK 17.1.0 (place required files in `nrf5_sdk/`)
 - LVGL 9.3 source files copied into `lvgl/`
