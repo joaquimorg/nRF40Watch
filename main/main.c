@@ -433,7 +433,7 @@ int main(void)
     st7789_init();
     step_counter_init();
     time_manager_init();
-    notification_service_init();
+    notification_service_init_simple();
 
     // Initialize LVGL and create UI
     lvgl_init();

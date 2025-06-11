@@ -126,10 +126,11 @@ INC_FOLDERS += \
 	$(SDK_ROOT)/components/libraries/pwr_mgmt \
 	$(SDK_ROOT)/components/libraries/delay \
 	$(SDK_ROOT)/components/libraries/log \
-	$(SDK_ROOT)/components/libraries/log/src \
-	$(SDK_ROOT)/components/libraries/strerror \
-	$(SDK_ROOT)/components/libraries/experimental_section_vars \
-	$(SDK_ROOT)/modules/nrfx \
+        $(SDK_ROOT)/components/libraries/log/src \
+        $(SDK_ROOT)/components/libraries/strerror \
+        $(SDK_ROOT)/components/libraries/mutex \
+        $(SDK_ROOT)/components/libraries/experimental_section_vars \
+        $(SDK_ROOT)/modules/nrfx \
 	$(SDK_ROOT)/modules/nrfx/hal \
 	$(SDK_ROOT)/integration/nrfx \
 	$(SDK_ROOT)/integration/nrfx/legacy \
@@ -194,5 +195,5 @@ $(BUILD_DIR)/$(PROJECT_NAME).out: $(OBJECTS)
 
 
 clean:
-	@if exist $(BUILD_DIR) $(RM) $(BUILD_DIR)
+	$(RM) -rf $(BUILD_DIR)
 
