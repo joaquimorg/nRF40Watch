@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.dbclient-js": "javascript",
+        "*.embeddedhtml": "html",
+        "*.sql": "oracle",
+        "bsp_btn_ble.h": "c"
+    }
+}

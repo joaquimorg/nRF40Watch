@@ -1,6 +1,6 @@
 PROJECT_NAME := nrf40watch_fw
 
-SDK_ROOT := nrf5_sdk
+SDK_ROOT ?= nrf5_sdk
 PROJ_DIR := .
 BUILD_DIR := _build
 
@@ -40,7 +40,7 @@ OPT = -Os -g3 -fno-exceptions -fno-non-call-exceptions
 # OPT += -flto
 
 CFLAGS += $(OPT)
-CFLAGS += -DBOARD_CUSTOM
+#CFLAGS += -DBOARD_CUSTOM
 CFLAGS += -DSOFTDEVICE_PRESENT
 CFLAGS += -DNRF_SD_BLE_API_VERSION=7
 CFLAGS += -DCONFIG_GPIO_AS_PINRESET
@@ -53,7 +53,7 @@ CFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
 CFLAGS += -ffunction-sections -fdata-sections -fno-strict-aliasing
 CFLAGS += -fno-builtin -fshort-enums
 
-SDK_ASMSRC_FILES := $(SDK_ROOT)/modules/nrfx/mdk/gcc_startup_nrf52840.S
+SDK_ASMSRC_FILES = $(SDK_ROOT)/modules/nrfx/mdk/gcc_startup_nrf52840.S
 
 SDK_ASMSRC_OBJS = $(addprefix $(BUILD_DIR)/, $(SDK_ASMSRC_FILES:.S=.o))
 
@@ -87,32 +87,41 @@ SDK_SRC_OBJS = $(addprefix $(BUILD_DIR)/, $(SDK_SRC_FILES:.c=.o))
 LVGL_DIR =  $(PROJ_DIR)/lvgl
 
 # Usage: collect all .c files in LVGL_DIR/src
-LVGL_SRC_FILES := $(call rwildcard,$(LVGL_DIR)/src,*.c)
+LVGL_SRC_FILES = $(call rwildcard,$(LVGL_DIR)/src,*.c)
 
 LVGL_SRC_OBJS = $(addprefix $(BUILD_DIR)/, $(LVGL_SRC_FILES:.c=.o))
 
 # Main firmware source and object files
 APP_SRC_FILES += $(wildcard $(PROJ_DIR)/main/*.c)
-APP_SRC_FILES += $(wildcard $(PROJ_DIR)/services/*.c)
 APP_SRC_FILES += $(wildcard $(PROJ_DIR)/drivers/*.c)
 
 APP_SRC_OBJS = $(addprefix $(BUILD_DIR)/, $(APP_SRC_FILES:.c=.o))
 
-INC_FOLDERS := \
+INC_FOLDERS += \
+	main \
+	drivers \
+	config \
+
+INC_FOLDERS += $(LVGL_DIR)
+INC_FOLDERS += $(LVGL_DIR)/src
+
+INC_FOLDERS += \
 	$(SDK_ROOT)/components/softdevice/s140/headers \
 	$(SDK_ROOT)/components/softdevice/s140/headers/nrf52 \
 	$(SDK_ROOT)/components/softdevice/common \
-	main \
-	services \
-	drivers \
 	$(SDK_ROOT)/components \
 	$(SDK_ROOT)/components/toolchain/cmsis/include \
 	$(SDK_ROOT)/components/libraries/util \
+	$(SDK_ROOT)/components/libraries/bsp \
 	$(SDK_ROOT)/components/ble/common \
+	$(SDK_ROOT)/components/ble/nrf_ble_qwr \
 	$(SDK_ROOT)/components/ble/ble_advertising \
 	$(SDK_ROOT)/components/ble/ble_services \
 	$(SDK_ROOT)/components/ble/nrf_ble_gatt \
+	$(SDK_ROOT)/components/ble/peer_manager \
 	$(SDK_ROOT)/components/boards \
+	$(SDK_ROOT)/components/libraries/fds \
+	$(SDK_ROOT)/components/libraries/atomic \
 	$(SDK_ROOT)/components/libraries/timer \
 	$(SDK_ROOT)/components/libraries/pwr_mgmt \
 	$(SDK_ROOT)/components/libraries/delay \
@@ -121,13 +130,11 @@ INC_FOLDERS := \
 	$(SDK_ROOT)/components/libraries/strerror \
 	$(SDK_ROOT)/components/libraries/experimental_section_vars \
 	$(SDK_ROOT)/modules/nrfx \
+	$(SDK_ROOT)/modules/nrfx/hal \
 	$(SDK_ROOT)/integration/nrfx \
 	$(SDK_ROOT)/integration/nrfx/legacy \
 	$(SDK_ROOT)/modules/nrfx/mdk \
 	$(SDK_ROOT)/modules/nrfx/drivers/include \
-	$(PROJ_DIR)/config \
-	$(LVGL_DIR)/ \
-	$(LVGL_DIR)/src \
 
 
 # Linker flags
