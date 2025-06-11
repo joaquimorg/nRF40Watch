@@ -81,6 +81,8 @@ SDK_SRC_FILES := \
 	$(SDK_ROOT)/components/libraries/pwr_mgmt/nrf_pwr_mgmt.c \
 	$(SDK_ROOT)/components/libraries/strerror/nrf_strerror.c \
 	$(SDK_ROOT)/components/ble/nrf_ble_gatt/nrf_ble_gatt.c \
+	$(SDK_ROOT)/components/ble/ble_link_ctx_manager/ble_link_ctx_manager.c \
+
 
 SDK_SRC_OBJS = $(addprefix $(BUILD_DIR)/, $(SDK_SRC_FILES:.c=.o))
 
@@ -117,6 +119,8 @@ INC_FOLDERS += \
 	$(SDK_ROOT)/components/ble/nrf_ble_qwr \
 	$(SDK_ROOT)/components/ble/ble_advertising \
 	$(SDK_ROOT)/components/ble/ble_services \
+	$(SDK_ROOT)/components/ble/ble_link_ctx_manager \
+	$(SDK_ROOT)/components/ble/ble_services/ble_nus \
 	$(SDK_ROOT)/components/ble/nrf_ble_gatt \
 	$(SDK_ROOT)/components/ble/peer_manager \
 	$(SDK_ROOT)/components/boards \
@@ -126,11 +130,11 @@ INC_FOLDERS += \
 	$(SDK_ROOT)/components/libraries/pwr_mgmt \
 	$(SDK_ROOT)/components/libraries/delay \
 	$(SDK_ROOT)/components/libraries/log \
-        $(SDK_ROOT)/components/libraries/log/src \
-        $(SDK_ROOT)/components/libraries/strerror \
-        $(SDK_ROOT)/components/libraries/mutex \
-        $(SDK_ROOT)/components/libraries/experimental_section_vars \
-        $(SDK_ROOT)/modules/nrfx \
+	$(SDK_ROOT)/components/libraries/log/src \
+	$(SDK_ROOT)/components/libraries/strerror \
+	$(SDK_ROOT)/components/libraries/mutex \
+	$(SDK_ROOT)/components/libraries/experimental_section_vars \
+	$(SDK_ROOT)/modules/nrfx \
 	$(SDK_ROOT)/modules/nrfx/hal \
 	$(SDK_ROOT)/integration/nrfx \
 	$(SDK_ROOT)/integration/nrfx/legacy \

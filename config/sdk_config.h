@@ -413,5 +413,419 @@
 
 // </e>
 
+
+// <h> BLE Observers - Observers and priority levels
+
+//==========================================================
+// <o> NRF_SDH_BLE_OBSERVER_PRIO_LEVELS - Total number of priority levels for BLE observers. 
+// <i> This setting configures the number of priority levels available for BLE event handlers.
+// <i> The priority level of a handler determines the order in which it receives events, with respect to other handlers.
+
+#ifndef NRF_SDH_BLE_OBSERVER_PRIO_LEVELS
+#define NRF_SDH_BLE_OBSERVER_PRIO_LEVELS 4
+#endif
+
+// <h> BLE Observers priorities - Invididual priorities
+
+//==========================================================
+// <o> BLE_ADV_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the Advertising module.
+
+#ifndef BLE_ADV_BLE_OBSERVER_PRIO
+#define BLE_ADV_BLE_OBSERVER_PRIO 1
+#endif
+
+// <o> BLE_ANCS_C_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the Apple Notification Service Client.
+
+#ifndef BLE_ANCS_C_BLE_OBSERVER_PRIO
+#define BLE_ANCS_C_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> BLE_ANS_C_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the Alert Notification Service Client.
+
+#ifndef BLE_ANS_C_BLE_OBSERVER_PRIO
+#define BLE_ANS_C_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> BLE_BAS_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the Battery Service.
+
+#ifndef BLE_BAS_BLE_OBSERVER_PRIO
+#define BLE_BAS_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> BLE_BAS_C_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the Battery Service Client.
+
+#ifndef BLE_BAS_C_BLE_OBSERVER_PRIO
+#define BLE_BAS_C_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> BLE_BPS_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the Blood Pressure Service.
+
+#ifndef BLE_BPS_BLE_OBSERVER_PRIO
+#define BLE_BPS_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> BLE_CONN_PARAMS_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the Connection parameters module.
+
+#ifndef BLE_CONN_PARAMS_BLE_OBSERVER_PRIO
+#define BLE_CONN_PARAMS_BLE_OBSERVER_PRIO 1
+#endif
+
+// <o> BLE_CONN_STATE_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the Connection State module.
+
+#ifndef BLE_CONN_STATE_BLE_OBSERVER_PRIO
+#define BLE_CONN_STATE_BLE_OBSERVER_PRIO 0
+#endif
+
+// <o> BLE_CSCS_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the Cycling Speed and Cadence Service.
+
+#ifndef BLE_CSCS_BLE_OBSERVER_PRIO
+#define BLE_CSCS_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> BLE_CTS_C_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the Current Time Service Client.
+
+#ifndef BLE_CTS_C_BLE_OBSERVER_PRIO
+#define BLE_CTS_C_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> BLE_DB_DISC_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the Database Discovery module.
+
+#ifndef BLE_DB_DISC_BLE_OBSERVER_PRIO
+#define BLE_DB_DISC_BLE_OBSERVER_PRIO 1
+#endif
+
+// <o> BLE_DFU_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the DFU Service.
+
+#ifndef BLE_DFU_BLE_OBSERVER_PRIO
+#define BLE_DFU_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> BLE_DIS_C_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the Device Information Client.
+
+#ifndef BLE_DIS_C_BLE_OBSERVER_PRIO
+#define BLE_DIS_C_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> BLE_GLS_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the Glucose Service.
+
+#ifndef BLE_GLS_BLE_OBSERVER_PRIO
+#define BLE_GLS_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> BLE_HIDS_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the Human Interface Device Service.
+
+#ifndef BLE_HIDS_BLE_OBSERVER_PRIO
+#define BLE_HIDS_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> BLE_HRS_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the Heart Rate Service.
+
+#ifndef BLE_HRS_BLE_OBSERVER_PRIO
+#define BLE_HRS_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> BLE_HRS_C_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the Heart Rate Service Client.
+
+#ifndef BLE_HRS_C_BLE_OBSERVER_PRIO
+#define BLE_HRS_C_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> BLE_HTS_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the Health Thermometer Service.
+
+#ifndef BLE_HTS_BLE_OBSERVER_PRIO
+#define BLE_HTS_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> BLE_IAS_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the Immediate Alert Service.
+
+#ifndef BLE_IAS_BLE_OBSERVER_PRIO
+#define BLE_IAS_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> BLE_IAS_C_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the Immediate Alert Service Client.
+
+#ifndef BLE_IAS_C_BLE_OBSERVER_PRIO
+#define BLE_IAS_C_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> BLE_LBS_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the LED Button Service.
+
+#ifndef BLE_LBS_BLE_OBSERVER_PRIO
+#define BLE_LBS_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> BLE_LBS_C_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the LED Button Service Client.
+
+#ifndef BLE_LBS_C_BLE_OBSERVER_PRIO
+#define BLE_LBS_C_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> BLE_LLS_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the Link Loss Service.
+
+#ifndef BLE_LLS_BLE_OBSERVER_PRIO
+#define BLE_LLS_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> BLE_LNS_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the Location Navigation Service.
+
+#ifndef BLE_LNS_BLE_OBSERVER_PRIO
+#define BLE_LNS_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> BLE_NUS_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the UART Service.
+
+#ifndef BLE_NUS_BLE_OBSERVER_PRIO
+#define BLE_NUS_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> BLE_NUS_C_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the UART Central Service.
+
+#ifndef BLE_NUS_C_BLE_OBSERVER_PRIO
+#define BLE_NUS_C_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> BLE_OTS_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the Object transfer service.
+
+#ifndef BLE_OTS_BLE_OBSERVER_PRIO
+#define BLE_OTS_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> BLE_OTS_C_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the Object transfer service client.
+
+#ifndef BLE_OTS_C_BLE_OBSERVER_PRIO
+#define BLE_OTS_C_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> BLE_RSCS_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the Running Speed and Cadence Service.
+
+#ifndef BLE_RSCS_BLE_OBSERVER_PRIO
+#define BLE_RSCS_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> BLE_RSCS_C_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the Running Speed and Cadence Client.
+
+#ifndef BLE_RSCS_C_BLE_OBSERVER_PRIO
+#define BLE_RSCS_C_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> BLE_TPS_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the TX Power Service.
+
+#ifndef BLE_TPS_BLE_OBSERVER_PRIO
+#define BLE_TPS_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> BSP_BTN_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the Button Control module.
+
+#ifndef BSP_BTN_BLE_OBSERVER_PRIO
+#define BSP_BTN_BLE_OBSERVER_PRIO 1
+#endif
+
+// <o> NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the NFC pairing library.
+
+#ifndef NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO
+#define NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO 1
+#endif
+
+// <o> NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the NFC pairing library.
+
+#ifndef NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO
+#define NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO 1
+#endif
+
+// <o> NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the NFC pairing library.
+
+#ifndef NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO
+#define NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO 1
+#endif
+
+// <o> NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the NFC pairing library.
+
+#ifndef NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO
+#define NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO 1
+#endif
+
+// <o> NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the NFC pairing library.
+
+#ifndef NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO
+#define NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO 1
+#endif
+
+// <o> NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the NFC pairing library.
+
+#ifndef NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO
+#define NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO 1
+#endif
+
+// <o> NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the NFC pairing library.
+
+#ifndef NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO
+#define NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO 1
+#endif
+
+// <o> NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the NFC pairing library.
+
+#ifndef NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO
+#define NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO 1
+#endif
+
+// <o> NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the NFC pairing library.
+
+#ifndef NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO
+#define NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO 1
+#endif
+
+// <o> NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the NFC pairing library.
+
+#ifndef NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO
+#define NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO 1
+#endif
+
+// <o> NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the NFC pairing library.
+
+#ifndef NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO
+#define NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO 1
+#endif
+
+// <o> NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the NFC pairing library.
+
+#ifndef NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO
+#define NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO 1
+#endif
+
+// <o> NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the NFC pairing library.
+
+#ifndef NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO
+#define NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO 1
+#endif
+
+// <o> NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the NFC pairing library.
+
+#ifndef NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO
+#define NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO 1
+#endif
+
+// <o> NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the NFC pairing library.
+
+#ifndef NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO
+#define NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO 1
+#endif
+
+// <o> NRF_BLE_BMS_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the Bond Management Service.
+
+#ifndef NRF_BLE_BMS_BLE_OBSERVER_PRIO
+#define NRF_BLE_BMS_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> NRF_BLE_CGMS_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the Contiuon Glucose Monitoring Service.
+
+#ifndef NRF_BLE_CGMS_BLE_OBSERVER_PRIO
+#define NRF_BLE_CGMS_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> NRF_BLE_ES_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the Eddystone module.
+
+#ifndef NRF_BLE_ES_BLE_OBSERVER_PRIO
+#define NRF_BLE_ES_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> NRF_BLE_GATTS_C_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the GATT Service Client.
+
+#ifndef NRF_BLE_GATTS_C_BLE_OBSERVER_PRIO
+#define NRF_BLE_GATTS_C_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> NRF_BLE_GATT_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the GATT module.
+
+#ifndef NRF_BLE_GATT_BLE_OBSERVER_PRIO
+#define NRF_BLE_GATT_BLE_OBSERVER_PRIO 1
+#endif
+
+// <o> NRF_BLE_GQ_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the GATT Queue module.
+
+#ifndef NRF_BLE_GQ_BLE_OBSERVER_PRIO
+#define NRF_BLE_GQ_BLE_OBSERVER_PRIO 1
+#endif
+
+// <o> NRF_BLE_QWR_BLE_OBSERVER_PRIO  
+// <i> Priority with which BLE events are dispatched to the Queued writes module.
+
+#ifndef NRF_BLE_QWR_BLE_OBSERVER_PRIO
+#define NRF_BLE_QWR_BLE_OBSERVER_PRIO 2
+#endif
+
+// <o> NRF_BLE_SCAN_OBSERVER_PRIO  
+// <i> Priority for dispatching the BLE events to the Scanning Module.
+
+#ifndef NRF_BLE_SCAN_OBSERVER_PRIO
+#define NRF_BLE_SCAN_OBSERVER_PRIO 1
+#endif
+
+// <o> PM_BLE_OBSERVER_PRIO - Priority with which BLE events are dispatched to the Peer Manager module. 
+#ifndef PM_BLE_OBSERVER_PRIO
+#define PM_BLE_OBSERVER_PRIO 1
+#endif
+
+// </h> 
+//==========================================================
+
+// </h> 
+//==========================================================
+
+
+// </e>
+
 #endif // SDK_CONFIG_H
 
