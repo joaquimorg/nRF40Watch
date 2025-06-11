@@ -21,6 +21,7 @@
 #define APP_TIMER_PRESCALER 0
 #define APP_TIMER_OP_QUEUE_SIZE 4
 
+
 static void lv_tick_handler(void) {
     lv_tick_inc(1);
 }
