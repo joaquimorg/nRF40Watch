@@ -81,8 +81,8 @@ typedef struct {
 static smartwatch_state_t m_watch_state = {0};
 
 // LVGL display buffer
-static lv_disp_draw_buf_t draw_buf;
-static lv_color_t buf[240 * 10];
+static lv_color_t lvgl_buf[240 * 10];
+static lv_display_t * display;
 
 // LVGL objects
 static lv_obj_t * time_label;
@@ -247,10 +247,10 @@ static void advertising_start(void)
 
 /**@brief LVGL display flush callback.
  */
-static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_color_t * color_p)
+static void disp_flush(lv_display_t * disp_drv, const lv_area_t * area, uint8_t * px_map)
 {
-    st7789_draw_bitmap(area->x1, area->y1, area->x2, area->y2, (uint16_t*)color_p);
-    lv_disp_flush_ready(disp_drv);
+    st7789_draw_bitmap(area->x1, area->y1, area->x2, area->y2, (uint16_t*)px_map);
+    lv_display_flush_ready(disp_drv);
 }
 
 /**@brief Initialize LVGL display driver.
@@ -258,16 +258,10 @@ static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_colo
 static void lvgl_init(void)
 {
     lv_init();
-    
-    lv_disp_draw_buf_init(&draw_buf, buf, NULL, 240 * 10);
-    
-    static lv_disp_drv_t disp_drv;
-    lv_disp_drv_init(&disp_drv);
-    disp_drv.hor_res = 240;
-    disp_drv.ver_res = 240;
-    disp_drv.flush_cb = disp_flush;
-    disp_drv.draw_buf = &draw_buf;
-    lv_disp_drv_register(&disp_drv);
+
+    display = lv_display_create(240, 240);
+    lv_display_set_flush_cb(display, disp_flush);
+    lv_display_set_buffers(display, lvgl_buf, NULL, sizeof(lvgl_buf), LV_DISPLAY_RENDER_MODE_PARTIAL);
 }
 
 /**@brief Create the main watch face UI.
