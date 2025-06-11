@@ -248,7 +248,7 @@ uint32_t notification_service_init(notification_service_init_t * p_init)
 
 /**@brief Simple init function without parameters
  */
-void notification_service_init(void)
+static inline void notification_service_init_simple(void)
 {
     notification_service_init_t init = {0};
     uint32_t err_code = notification_service_init(&init);
