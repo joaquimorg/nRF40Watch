@@ -27,7 +27,7 @@ endef
 rwildcard = $(foreach d,$(wildcard $1/*),$(call rwildcard,$d,$2) $(filter $(subst *,%,$2),$d))
 
 $(OUTPUT_DIRECTORY)/$(TARGETS).out: \
-	LINKER_SCRIPT  := config/gcc_nrf52.ld
+	LINKER_SCRIPT  := $(PROJ_DIR)/config/gcc_nrf52.ld
 
 SRC_FILES += \
 	$(SDK_ROOT)/modules/nrfx/mdk/gcc_startup_nrf52840.S \
@@ -114,12 +114,16 @@ SRC_FILES += \
 	$(SDK_ROOT)/components/softdevice/common/nrf_sdh_ble.c \
 	$(SDK_ROOT)/components/softdevice/common/nrf_sdh_freertos.c \
 	$(SDK_ROOT)/components/softdevice/common/nrf_sdh_soc.c \
+	$(SDK_ROOT)/integration/nrfx/legacy/nrf_drv_spi.c \
+	$(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_spi.c \
+	
+#	$(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_spim.c \
 
 
 LVGL_DIR =  $(PROJ_DIR)/lvgl
 
 # Usage: collect all .c files in LVGL_DIR/src
-#LVGL_SRC_FILES = $(call rwildcard,$(LVGL_DIR)/src,*.c)
+SRC_FILES += $(call rwildcard,$(LVGL_DIR)/src,*.c)
 
 # Main firmware source and object files
 SRC_FILES += $(wildcard $(PROJ_DIR)/main/*.c)
@@ -127,9 +131,9 @@ SRC_FILES += $(wildcard $(PROJ_DIR)/drivers/*.c)
 
 
 INC_FOLDERS += \
-	main \
-	drivers \
-	config \
+	$(PROJ_DIR)/main \
+	$(PROJ_DIR)/drivers \
+	$(PROJ_DIR)/config \
 
 INC_FOLDERS += $(LVGL_DIR)
 INC_FOLDERS += $(LVGL_DIR)/src
@@ -274,7 +278,10 @@ INC_FOLDERS += \
 # Optimization flags
 OPT = -Os -g3 -fno-exceptions -fno-non-call-exceptions
 # Uncomment the line below to enable link time optimization
-OPT += -flto
+#OPT += -flto
+
+
+OPT += -DNRF_LOG_ENABLED
 
 # C flags common to all targets
 CFLAGS += $(OPT)
@@ -296,6 +303,12 @@ CFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
 CFLAGS += -ffunction-sections -fdata-sections -fno-strict-aliasing
 CFLAGS += -fno-builtin -fshort-enums
 CFLAGS += -MMD -MP
+
+CFLAGS += -DNRF_LOG_ENABLED=1
+CFLAGS += -DNRF_LOG_BACKEND_UART_ENABLED=1
+CFLAGS += -DNRF_LOG_BACKEND_UART_TX_PIN=25
+CFLAGS += -DNRF_LOG_BACKEND_UART_BAUDRATE=30801920
+CFLAGS += -DNRF_LOG_BACKEND_UART_TEMP_BUFFER_SIZE=64
 
 # C++ flags common to all targets
 CXXFLAGS += $(OPT)
@@ -324,6 +337,7 @@ LDFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
 LDFLAGS += -Wl,--gc-sections
 # use newlib in nano version
 LDFLAGS += --specs=nano.specs
+LDFLAGS += -Wl,--wrap=malloc -Wl,--wrap=free -Wl,--print-memory-usage
 
 $(PROJECT_NAME): CFLAGS += -D__HEAP_SIZE=1024
 $(PROJECT_NAME): CFLAGS += -D__STACK_SIZE=2048
@@ -355,7 +369,7 @@ directories:
 #------------------------------------------------------------------------------
 
 # Main firmware
-app: $(OUTPUT_DIRECTORY)/$(PROJECT_NAME).out
+app: $(OUTPUT_DIRECTORY)/$(PROJECT_NAME).hex
 
 TEMPLATE_PATH := $(SDK_ROOT)/components/toolchain/gcc
 
@@ -367,5 +381,27 @@ clean:
 	$(RMD) $(OUTPUT_DIRECTORY)
 
 flash: default
-	@echo	** Program nRF40Watch with $(OUTPUT_DIRECTORY)/$(PROJECT_NAME).app.hex	
+	@echo	** Program nRF40Watch with $(OUTPUT_DIRECTORY)/$(PROJECT_NAME).hex and settings
+	python ./dfu/hexmerge.py --overlap=replace ./dfu/bl_settings.hex $(OUTPUT_DIRECTORY)/$(PROJECT_NAME).hex -o ./dfu/$(PROJECT_NAME)_settings.hex
+	openocd.exe -c "tcl_port disabled" -c "gdb_port 3333" -c "telnet_port 4444" -f interface/stlink.cfg -c 'transport select hla_swd' -f target/nrf52.cfg -c "program ./dfu/$(PROJECT_NAME)_settings.hex" -c reset -c shutdown
+
+flash_app: default
+	@echo	** Program nRF40Watch with $(OUTPUT_DIRECTORY)/$(PROJECT_NAME).hex	
 	openocd.exe -c "tcl_port disabled" -c "gdb_port 3333" -c "telnet_port 4444" -f interface/stlink.cfg -c 'transport select hla_swd' -f target/nrf52.cfg -c "program $(OUTPUT_DIRECTORY)/$(PROJECT_NAME).hex" -c reset -c shutdown
+
+flash_erase:
+	@echo	** Erase nRF40Watch flash
+	openocd.exe -f interface/stlink.cfg -c 'transport select hla_swd' -f target/nrf52.cfg -c init -c 'reset halt' -c 'nrf5 mass_erase' -c reset -c shutdown
+
+flash_sd:
+	@echo	** Program nRF40Watch with Softdevice
+	openocd.exe -c "tcl_port disabled" -c "gdb_port 3333" -c "telnet_port 4444" -f interface/stlink.cfg -c 'transport select hla_swd' -f target/nrf52.cfg -c "program $(SDK_ROOT)/components/softdevice/s140/hex/s140_nrf52_7.2.0_softdevice.hex" -c reset -c shutdown
+
+settings:
+	@echo	** Generating Settings
+	D:\tools\nrfutil.exe settings generate --family NRF52840 --key-file d:/Work/PineTime/nordic_pem_keys/pinetime.pem --bootloader-version 4 --application-version 1 --bl-settings-version 2 --app-boot-validation NO_VALIDATION --sd-boot-validation NO_VALIDATION --softdevice $(SDK_ROOT)/components/softdevice/s140/hex/s140_nrf52_7.2.0_softdevice.hex --application $(OUTPUT_DIRECTORY)/$(PROJECT_NAME).hex ./dfu/bl_settings.hex
+
+flash_boot:
+	@echo	** Program Bootloader and Settings
+	python ./dfu/hexmerge.py --overlap=replace ./dfu/bl_settings.hex ./dfu/bootloader.hex -o ./dfu/bootloader_settings.hex
+	openocd.exe -c "tcl_port disabled" -c "gdb_port 3333" -c "telnet_port 4444" -f interface/stlink.cfg -c 'transport select hla_swd' -f target/nrf52.cfg -c "program ./dfu/bootloader_settings.hex" -c reset -c shutdown

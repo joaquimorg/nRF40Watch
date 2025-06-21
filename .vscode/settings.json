@@ -3,6 +3,8 @@
         "*.dbclient-js": "javascript",
         "*.embeddedhtml": "html",
         "*.sql": "oracle",
-        "bsp_btn_ble.h": "c"
+        "bsp_btn_ble.h": "c",
+        "regex": "c",
+        "xiosbase": "c"
     }
 }
